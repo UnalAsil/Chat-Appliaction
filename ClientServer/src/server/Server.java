@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import message.*;
-
+import server.WriteToDb;;
 public class Server {
 	
 	private static final String lowPriFile="lowPriorty.txt";
@@ -67,7 +67,10 @@ public class Server {
 			System.out.println("Waiting for clients");
 			ServerSocket serverSocket = new ServerSocket(9806);
 			Socket socket = serverSocket.accept();
-			System.out.println("Connection Establishment");
+			System.out.println("Connection Establishment to Client");
+			
+			WriteToDb sqlConnect = new WriteToDb(); //Connection to Database.
+			sqlConnect.connect();
 			
 			
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));

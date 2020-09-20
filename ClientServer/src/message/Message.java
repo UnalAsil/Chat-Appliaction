@@ -2,6 +2,7 @@ package message;
 
 import java.io.Serializable;
 
+@SuppressWarnings("serial")
 public class Message implements Serializable { //Serializable cause Transferring of Java Objects through sockets
 private String to;
 private String cc;

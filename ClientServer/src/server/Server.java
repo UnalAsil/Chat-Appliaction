@@ -84,11 +84,11 @@ public class Server {
 				else {
 					System.out.println("Client : "+mes ); //Receive from Client;
 					ServerFileSys(mes); // Write message to file 
-//					ReadObjectFromFile("lowPriorty.txt");
+//					ReadObjectFromFile("lowPriorty.txt"); 
 				}
 				
 			}
-			System.out.println("Conservation ended.");
+			System.out.println("Conservation ended from client.");
 		}
 		catch(Exception e){
 			e.printStackTrace();

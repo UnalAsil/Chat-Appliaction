@@ -85,8 +85,11 @@ public class Server {
 				}
 				
 				else {
-					System.out.println("Client : "+mes ); //Receive from Client;
-					ServerFileSys(mes); // Write message to file 
+					System.out.println("Client : " + mes ); //Receive from Client;
+//					ServerFileSys(mes); // Write message to file 
+					
+					sqlConnect.insertDb(mes);
+					
 //					ReadObjectFromFile("lowPriorty.txt"); 
 				}
 				

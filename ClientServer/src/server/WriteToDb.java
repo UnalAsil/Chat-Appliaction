@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
@@ -24,9 +25,9 @@ private static Queue<Message> highPriQueue;
 
 public WriteToDb() throws SQLException {
 	this.connection = DriverManager.getConnection(url, user, password);
-	lowPriQueue = new PriorityQueue<Message>();
-	midPriQueue = new PriorityQueue<Message>();
-	highPriQueue = new PriorityQueue<Message>();
+	lowPriQueue = new LinkedList<Message>();
+	midPriQueue = new LinkedList<Message>();
+	highPriQueue = new LinkedList<Message>();
 }
 
 public void connect () {

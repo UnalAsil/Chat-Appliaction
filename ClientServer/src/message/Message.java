@@ -2,13 +2,18 @@ package message;
 
 import java.io.Serializable;
 
-@SuppressWarnings("serial")
-public class Message implements Serializable { //Serializable cause Transferring of Java Objects through sockets
+@SuppressWarnings({ "serial", "rawtypes" })
+public class Message implements Comparable<Message>  ,Serializable { //Serializable cause Transferring of Java Objects through sockets
+	
 private String to;
 private String cc;
 private String subject;
 private String priorty;
 private String message;
+private int id; // Id of messages
+
+
+private static int ID=0; // Use for generate unique Id.
 
 public Message(String to, String cc, String subject, String priorty, String message) {
 	this.to = to;
@@ -16,6 +21,7 @@ public Message(String to, String cc, String subject, String priorty, String mess
 	this.subject = subject;
 	this.priorty = priorty;
 	this.message = message;
+	this.id = ID++; 
 }
 public String getTo() {
 	return to;
@@ -51,6 +57,17 @@ public void setMessage(String message) {
 @Override
 public String toString() {
 	return "To: " + getTo() + " ; Cc: " + getCc() + " ; Subject: " + getSubject() + " ; Priorty: " + getPriorty() + " ; Message: " + getMessage(); 
+}
+@Override
+public int compareTo(Message mes) {
+	// TODO Auto-generated method stub
+	return this.getTo().compareTo(mes.getTo());
+}
+public int getId() {
+	return id;
+}
+public void setId(int id) {
+	this.id = id;
 }
 
 }

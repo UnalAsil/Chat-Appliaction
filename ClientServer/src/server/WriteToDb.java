@@ -1,4 +1,5 @@
 package server;
+import java.net.DatagramPacket;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -56,7 +57,7 @@ public void queryDb(String query) {
 	}
 }
 
-public void insertDb(Message msg) throws SQLException {
+public void insertDB(Message msg) throws SQLException {
 	//TODO Insert message to database table according to priority;
 	PreparedStatement st;
 	switch (msg.getPriorty()) {
@@ -97,8 +98,105 @@ public void insertDb(Message msg) throws SQLException {
 	st.executeUpdate();
 	st.close();
 }
+
+
+
+public void insertDBWithThread(Message msg) throws SQLException {
+		
+	Thread lowPriortyDbThread = new Thread("Writing low priorty message to database") {
+		PreparedStatement st;
+		Connection connection = DriverManager.getConnection(url, user, password);
+		public void run() {
+			try {
+				System.out.println("Insert low priorty thread running.");
+				st = connection.prepareStatement("INSERT INTO \"lowPriorty\" (\"id\", \"Tom\", \"Cc\", \"Subject\", \"Type\", \"Message\") VALUES (?, ?, ?, ?, ?, ?)");
+				st.setInt(1, IdLowPri++);
+				st.setString(2, msg.getTo());
+				st.setString(3, msg.getCc());
+				st.setString(4, msg.getSubject());
+				st.setString(5, msg.getPriorty());
+				st.setString(6, msg.getMessage());
+				st.executeUpdate();
+				st.close();
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
+	};
+	
+	Thread midPriortyDbThread = new Thread("Writing mid priorty message to database") {
+		PreparedStatement st;
+		Connection connection = DriverManager.getConnection(url, user, password);
+		public void run() {
+			try {
+				System.out.println("Insert mid priorty thread running.");
+				st = connection.prepareStatement("INSERT INTO \"midPriorty\" (\"id\", \"Tom\", \"Cc\", \"Subject\", \"Type\", \"Message\") VALUES (?, ?, ?, ?, ?, ?)");
+				st.setInt(1, IdMidPri++);
+				st.setString(2, msg.getTo());
+				st.setString(3, msg.getCc());
+				st.setString(4, msg.getSubject());
+				st.setString(5, msg.getPriorty());
+				st.setString(6, msg.getMessage());
+				st.executeUpdate();
+				st.close();
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
+	};
+	
+	Thread highPriortyDbThread = new Thread("Writing high priorty message to database") {
+		PreparedStatement st;
+		Connection connection = DriverManager.getConnection(url, user, password);
+		public void run() {
+			try {
+				System.out.println("Insert high priorty thread running.");
+				st = connection.prepareStatement("INSERT INTO \"highPriorty\" (\"id\", \"Tom\", \"Cc\", \"Subject\", \"Type\", \"Message\") VALUES (?, ?, ?, ?, ?, ?)");
+				st.setInt(1, IdHighPri++);
+				st.setString(2, msg.getTo());
+				st.setString(3, msg.getCc());
+				st.setString(4, msg.getSubject());
+				st.setString(5, msg.getPriorty());
+				st.setString(6, msg.getMessage());
+				st.executeUpdate();
+				st.close();
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	};
+	
+	switch (msg.getPriorty()) {
+	case "Dusuk": 
+		lowPriortyDbThread.start();
+		
+		break;
+	case "Normal":
+		midPriortyDbThread.start();
+		
+		break;
+	case "Yuksek":
+		highPriortyDbThread.start();
+		
+		break;
+	
+	default:
+		lowPriortyDbThread.start();		
+		break;
+	}
+}
+
+public void deleteFromDB() {
+	//TODO Delete message from database.
+}
 	
 }
+
 
 
 

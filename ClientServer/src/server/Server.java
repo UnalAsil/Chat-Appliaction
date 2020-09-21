@@ -88,13 +88,14 @@ public class Server {
 					System.out.println("Client : " + mes ); //Receive from Client;
 //					ServerFileSys(mes); // Write message to file 
 					
-					sqlConnect.insertDb(mes);
+					sqlConnect.insertDBWithThread(mes);
 					
 //					ReadObjectFromFile("lowPriorty.txt"); 
 				}
 				
 			}
 			System.out.println("Conservation ended from client.");
+			serverSocket.close();
 		}
 		catch(Exception e){
 			e.printStackTrace();

@@ -2,7 +2,7 @@ package message;
 
 import java.io.Serializable;
 
-@SuppressWarnings({ "serial", "rawtypes" })
+@SuppressWarnings({ "serial" })
 public class Message implements Comparable<Message>  ,Serializable { //Serializable cause Transferring of Java Objects through sockets
 	
 private String to;
@@ -13,7 +13,7 @@ private String message;
 private int id; // Id of messages
 
 
-private static int ID=0; // Use for generate unique Id.
+private static int ID=1; // Use for generate unique Id.
 
 public Message(String to, String cc, String subject, String priorty, String message) {
 	this.to = to;

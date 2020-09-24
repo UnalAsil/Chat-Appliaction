@@ -66,24 +66,27 @@ public void insertDB(Message msg) throws SQLException {
 	//TODO Insert message to database table according to priority;
 	PreparedStatement st;
 	switch (msg.getPriorty()) {
-	case "Dusuk":  	st = this.connection.prepareStatement("INSERT INTO \"lowPriorty\" (\"id\", \"Tom\", \"Cc\", \"Subject\", \"Type\", \"Message\") VALUES (?, ?, ?, ?, ?, ?)");
+	case "Dusuk":  	st = this.connection.prepareStatement("INSERT INTO \"lowPriorty\" (\"id\", \"Tom\", \"Cc\", \"Subject\", \"Type\", \"Message\", \"From\") VALUES (?, ?, ?, ?, ?, ?, ?)");
 					st.setInt(1, msg.getId());
 					st.setString(2, msg.getTo());
 					st.setString(3, msg.getCc());
 					st.setString(4, msg.getSubject());
 					st.setString(5, msg.getPriorty());
 					st.setString(6, msg.getMessage());
+					st.setString(7, msg.getFrom());
 					break;
 				
-	case "Normal": 	st = this.connection.prepareStatement("INSERT INTO \"midPriorty\" (\"id\", \"Tom\", \"Cc\", \"Subject\", \"Type\", \"Message\") VALUES (?, ?, ?, ?, ?, ?)");
+	case "Normal": 	st = this.connection.prepareStatement("INSERT INTO \"midPriorty\" (\"id\", \"Tom\", \"Cc\", \"Subject\", \"Type\", \"Message\", \"From\") VALUES (?, ?, ?, ?, ?, ?, ?)");
 					st.setInt(1, msg.getId());
 					st.setString(2, msg.getTo());
 					st.setString(3, msg.getCc());
 					st.setString(4, msg.getSubject());
 					st.setString(5, msg.getPriorty());
-					st.setString(6, msg.getMessage());			
+					st.setString(6, msg.getMessage());	
+					st.setString(7, msg.getFrom());
+
 					break;
-	case "Yuksek": 	st = this.connection.prepareStatement("INSERT INTO \"highPriorty\" (\"id\", \"Tom\", \"Cc\", \"Subject\", \"Type\", \"Message\") VALUES (?, ?, ?, ?, ?, ?)");
+	case "Yuksek": 	st = this.connection.prepareStatement("INSERT INTO \"highPriorty\" (\"id\", \"Tom\", \"Cc\", \"Subject\", \"Type\", \"Message\", \"From\") VALUES (?, ?, ?, ?, ?, ?, ?)");
 					st.setInt(1, msg.getId());
 					st.setString(2, msg.getTo());
 					st.setString(3, msg.getCc());
@@ -98,6 +101,8 @@ public void insertDB(Message msg) throws SQLException {
 					st.setString(4, msg.getSubject());
 					st.setString(5, msg.getPriorty());
 					st.setString(6, msg.getMessage());
+					st.setString(7, msg.getFrom());
+
 					break;		//In wrong usage.
 	}
 	st.executeUpdate();
@@ -115,13 +120,15 @@ public void runInLowQue() throws SQLException {
 				{
 					msg = lowPriQueue.poll();
 					System.out.println("Insert low priorty thread running.");
-					st = connection.prepareStatement("INSERT INTO \"lowPriorty\" (\"id\", \"Tom\", \"Cc\", \"Subject\", \"Type\", \"Message\") VALUES (?, ?, ?, ?, ?, ?)");
+					st = connection.prepareStatement("INSERT INTO \"lowPriorty\" (\"id\", \"Tom\", \"Cc\", \"Subject\", \"Type\", \"Message\", \"From\") VALUES (?, ?, ?, ?, ?, ?, ?)");
 					st.setInt(1, msg.getId());
 					st.setString(2, msg.getTo());
 					st.setString(3, msg.getCc());
 					st.setString(4, msg.getSubject());
 					st.setString(5, msg.getPriorty());
 					st.setString(6, msg.getMessage());
+					st.setString(7, msg.getFrom());
+
 					st.executeUpdate();
 					st.close();
 					System.out.println("Insert low priorty thread runned.");
@@ -145,13 +152,15 @@ public void runInMidQueue() throws SQLException{
 			try {
 				while(midPriQueue.size()>0){
 					msg = midPriQueue.poll();
-					st = connection.prepareStatement("INSERT INTO \"midPriorty\" (\"id\", \"Tom\", \"Cc\", \"Subject\", \"Type\", \"Message\") VALUES (?, ?, ?, ?, ?, ?)");
+					st = connection.prepareStatement("INSERT INTO \"midPriorty\" (\"id\", \"Tom\", \"Cc\", \"Subject\", \"Type\", \"Message\", \"From\") VALUES (?, ?, ?, ?, ?, ?, ?)");
 					st.setInt(1, msg.getId());
 					st.setString(2, msg.getTo());
 					st.setString(3, msg.getCc());
 					st.setString(4, msg.getSubject());
 					st.setString(5, msg.getPriorty());
 					st.setString(6, msg.getMessage());
+					st.setString(7, msg.getFrom());
+
 					st.executeUpdate();
 					st.close();
 					System.out.println("Insert mid priorty thread runned.");
@@ -176,13 +185,15 @@ public void runInHighQueue() throws SQLException{
 				while (highPriQueue.size()>0)
 				{
 					msg = highPriQueue.poll();
-					st = connection.prepareStatement("INSERT INTO \"highPriorty\" (\"id\", \"Tom\", \"Cc\", \"Subject\", \"Type\", \"Message\") VALUES (?, ?, ?, ?, ?, ?)");
+					st = connection.prepareStatement("INSERT INTO \"highPriorty\" (\"id\", \"Tom\", \"Cc\", \"Subject\", \"Type\", \"Message\", \"From\") VALUES (?, ?, ?, ?, ?, ?, ?)");
 					st.setInt(1, msg.getId());
 					st.setString(2, msg.getTo());
 					st.setString(3, msg.getCc());
 					st.setString(4, msg.getSubject());
 					st.setString(5, msg.getPriorty());
 					st.setString(6, msg.getMessage());
+					st.setString(7, msg.getFrom());
+
 					st.executeUpdate();
 					st.close();
 					System.out.println("Insert high priorty thread runned.");

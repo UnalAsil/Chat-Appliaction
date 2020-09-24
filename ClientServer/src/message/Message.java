@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 @SuppressWarnings({ "serial" })
 public class Message implements Comparable<Message>  ,Serializable { //Serializable cause Transferring of Java Objects through sockets
-	
+
+private String from;
 private String to;
 private String cc;
 private String subject;
@@ -15,12 +16,13 @@ private int id; // Id of messages
 
 private static int ID=1; // Use for generate unique Id.
 
-public Message(String to, String cc, String subject, String priorty, String message) {
+public Message(String to, String cc, String subject, String priorty, String message, String from) {
 	this.to = to;
 	this.cc = cc;
 	this.subject = subject;
 	this.priorty = priorty;
 	this.message = message;
+	this.from = from;
 	this.id = ID++; 
 }
 public String getTo() {
@@ -68,6 +70,12 @@ public int getId() {
 }
 public void setId(int id) {
 	this.id = id;
+}
+public String getFrom() {
+	return from;
+}
+public void setFrom(String from) {
+	this.from = from;
 }
 
 }

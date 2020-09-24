@@ -17,7 +17,7 @@ public class ClientsInfo { //This class holds the connected clients information.
 	}
 
 	public String getHostName() {
-		return hostName;
+		return hostName; 
 	}
 
 	public void setHostName(String hostName) {

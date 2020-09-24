@@ -23,7 +23,7 @@ public class Server {
 			}
 		}
 		catch(Exception e){
-			e.printStackTrace();
+			e.printStackTrace(); 
 		}
 	}
 

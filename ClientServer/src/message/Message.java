@@ -2,9 +2,17 @@ package message;
 
 import java.io.Serializable;
 
+
+// GG:
+// 1- Javadoc
+// 2- Hiza
 @SuppressWarnings({ "serial" })
 public class Message implements Comparable<Message>  ,Serializable { //Serializable cause Transferring of Java Objects through sockets
 
+	// GG:
+	// 1- Hiza bozuk
+	// 2- ServerWorker sınıfında da benzeri vardı, değeri constructorda bir kere atandıktan sonra değeri değişmeyen bu alttaki
+	//    alanlar için Java'daki ilgili keyword nedir ?
 private String from;
 private String to;
 private String cc;

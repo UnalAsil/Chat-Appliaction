@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class Server {
 	
-	private static final Logger LOGGER = Logger.getLogger( Client.class.getName() );
+	private static final Logger LOGGER = Logger.getLogger( Server.class.getName() );
 
 	private ServerWorker worker;
 	private static ArrayList<ClientsInfo> clients = new ArrayList<ClientsInfo>();

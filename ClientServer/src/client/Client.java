@@ -80,7 +80,7 @@ public class Client {
 	 * @param message Content of the message
 	 * @param from  Address to which the message was sent.
 	 */
-	public void sendMessage (String to, String cc, String subject, String priorty, String message , String from ) {
+	public Message sendMessage (String to, String cc, String subject, String priorty, String message , String from ) {
 		
 		Message mes = new Message(to,cc,subject,priorty, message , from);
 		
@@ -94,5 +94,6 @@ public class Client {
 			LOGGER.log( Level.SEVERE, "Could not send message from client to server", e );	
 		}
 		
+		return mes;
 	}
 }

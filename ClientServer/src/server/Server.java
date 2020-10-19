@@ -2,12 +2,22 @@ package server;
 
 import java.net.ServerSocket;
 import java.util.logging.Level; 
-import java.util.logging.Logger; 
+import java.util.logging.Logger;
+
+import client.Client;
 
 import java.net.Socket;
 import java.util.ArrayList;
+
+/**
+ * 
+ * It meets incoming connection requests. It runs a separate thread for each request.
+ * @author unal
+ *
+ */
 public class Server {
 	
+	private static final Logger LOGGER = Logger.getLogger( Client.class.getName() );
 
 	private ServerWorker worker;
 	private static ArrayList<ClientsInfo> clients = new ArrayList<ClientsInfo>();
@@ -16,20 +26,17 @@ public class Server {
 		
 		try {
 			
-		       Logger logger 
-	            = Logger.getLogger( 
-	            		Server.class.getName()); 
-	  
 			System.out.println("Waiting for clients");
+			//TODO Host/port bilgilerini kullanicidan al.
 			ServerSocket serverSocket = new ServerSocket(9806);
 			
-			logger.log(Level.INFO, "Server started.");
+			LOGGER.log(Level.INFO, "Server started.");
 			
 			while (true) {
 				
 				Socket socket = serverSocket.accept();
 				clients.add(new ClientsInfo(socket));
-				logger.log(Level.INFO, "Connection Establishment to Client");
+				LOGGER.log(Level.INFO, "Connection Establishment to Client");
 
 				connectedClientsInfo();
 				ServerWorker worker = new ServerWorker(socket);
@@ -39,11 +46,15 @@ public class Server {
 		}
 		catch (Exception e){
 			
-			e.printStackTrace(); 
+			LOGGER.log( Level.SEVERE, e.toString(), e );	
 			
 		}
 	}
-
+	
+	/**
+	 * Print information of clients connected to the server.
+	 * 
+	 */
 	private static void connectedClientsInfo() {
 		
 		for(ClientsInfo client: clients) {

@@ -2,7 +2,13 @@ package server;
 
 import java.net.Socket;
 
-public class ClientsInfo { //This class holds the connected clients information.
+/**
+ * //This class holds the connected clients information.
+ * @author unal
+ *
+ */
+
+public class ClientsInfo { 
 //TODO Hold connected clients informations.
 	private Socket socket;
 	
@@ -10,6 +16,10 @@ public class ClientsInfo { //This class holds the connected clients information.
 
 	private String hostAdress;
 	
+	/**
+	 * Hold socket, hostname and hostAdress
+	 * @param socket
+	 */
 	public ClientsInfo(Socket socket) {
 		this.socket = socket;
 		this.hostName  = socket.getInetAddress().getHostName();

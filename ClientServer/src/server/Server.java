@@ -61,6 +61,7 @@ public class Server {
 			
 			System.out.println("Connected clients name : " + client.getHostName() + " adress : " + client.getHostAdress());
 			
+			
 		}
 	}
 }

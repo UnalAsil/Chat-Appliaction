@@ -13,22 +13,34 @@ import java.sql.SQLException;
 
 import message.Message;
 
+// GG:
+// 1- Javadoc
+// 2- Java'da Thread oluturmak için Thread sınıfını extend etmek dışında hangi yöntem var ?
 public class ServerWorker extends Thread {
 	
 	private static final String lowPriFile="lowPriorty.txt";
 	private static final String midPriFile="midPriorty.txt";
 	private static final String highPriFile="highPriorty.txt";
 	
+	// GG:
+	// Bu alan constructor dan alınıp atandıktan sonra bir daha değeri değişmiyor,
+	// Java'da bu şekilde değeri 1 kez atanan değişkenler için kullanılan keywork hangisi ?
 	private Socket socket;
 
 	public ServerWorker (Socket serverSocket) {
 		this.socket = serverSocket;
 	}
 	
+	// GG:
+	// 1- Sıralama, bu alanlar okunabilirlik açısından sınıfın üstünde socket ile benzer yerde tanımlanmalı
+	// 2- Bu alanlar neden static ?
 	static BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
 	static ObjectInputStream inStream = null;
 	
 	
+	// GG:
+	// 1- Bu metot neden static ?
+	// 2- Java'da metot isimleri konvensiyonel olarak büyük harf ile başlamaz
 	public static void ServerFileSys(Message message) {
 		switch (message.getPriorty()) {
 		case "Dusuk":  WriteObjectToFile(message, lowPriFile);
@@ -44,6 +56,8 @@ public class ServerWorker extends Thread {
 	
 	private static void WriteObjectToFile(Message message, String path) {
 	    try {
+		// GG:
+		// Hiza bozuk
 			FileOutputStream fileOut = new FileOutputStream(path);
 	        ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
 	        objectOut.writeObject(message);
@@ -58,6 +72,8 @@ public class ServerWorker extends Thread {
 	
 	private static void ReadObjectFromFile(String path) {
 		try {
+		// GG:
+		// Hiza bozuk
             FileInputStream fileIn = new FileInputStream(path);
             ObjectInputStream objectIn = new ObjectInputStream(fileIn);
             Message obj = (Message) objectIn.readObject();

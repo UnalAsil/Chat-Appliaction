@@ -32,7 +32,7 @@ public class testClient {
 	@Before
 	public void setUp() throws IOException {
 				
-		serverSocket = new ServerSocket(9806);
+		serverSocket = new ServerSocket(PORT);
 		
 		testClient = new Client();
 

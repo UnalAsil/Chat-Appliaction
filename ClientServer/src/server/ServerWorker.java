@@ -49,23 +49,23 @@ public class ServerWorker extends Thread {
 	 * Write to files according to priority
 	 * @param message Given message object
 	 */
-	public void ServerFileSys(Message message) {
+	public void serverFileSys(Message message) {
 		
 		switch (message.getPriorty()) {
 		
-			case "Dusuk":  WriteObjectToFile(message, lowPriFile);
+			case "Dusuk":  writeObjectToFile(message, lowPriFile);
 						break;
-			case "Normal": WriteObjectToFile(message, midPriFile);
+			case "Normal": writeObjectToFile(message, midPriFile);
 						break;
-			case "Yuksek": WriteObjectToFile(message, highPriFile);
+			case "Yuksek": writeObjectToFile(message, highPriFile);
 						break;
-			default      : WriteObjectToFile(message, lowPriFile); //In wrong usage.
+			default      : writeObjectToFile(message, lowPriFile); //In wrong usage.
 						break;
 						
 		}
 	}
 	
-	private void WriteObjectToFile(Message message, String path) {
+	private void writeObjectToFile(Message message, String path) {
 		
 	    try {
 	    	
@@ -86,7 +86,7 @@ public class ServerWorker extends Thread {
 	 * Read the objects from given addres
 	 * @param path file adress
 	 */
-	private void ReadObjectFromFile(String path) {
+	private void readObjectFromFile(String path) {
 		
 		try {
 			

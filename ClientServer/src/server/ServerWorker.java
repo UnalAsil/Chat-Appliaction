@@ -42,6 +42,7 @@ public class ServerWorker extends Thread {
 	public ServerWorker (Socket serverSocket) {
 		
 		this.socket = serverSocket;
+		
 	}
 	
 	/**
@@ -60,6 +61,7 @@ public class ServerWorker extends Thread {
 						break;
 			default      : WriteObjectToFile(message, lowPriFile); //In wrong usage.
 						break;
+						
 		}
 	}
 	
@@ -74,7 +76,9 @@ public class ServerWorker extends Thread {
 	        System.out.println("The Object  was succesfully written to a file");
 	        
 		} catch (Exception e) {
+			
 			LOGGER.log( Level.SEVERE, e.toString(), e );
+			
 		}
 	}
 	
@@ -85,13 +89,17 @@ public class ServerWorker extends Thread {
 	private void ReadObjectFromFile(String path) {
 		
 		try {
+			
             FileInputStream fileIn = new FileInputStream(path);
             ObjectInputStream objectIn = new ObjectInputStream(fileIn);
             Message obj = (Message) objectIn.readObject();
             System.out.println("The Object has been read from the file : " + obj);
+            
 		}
 		catch(Exception e) {
+			
 			LOGGER.log( Level.SEVERE, "There was a problem reading from the file.", e );	
+			
 		}
 	}
 	

@@ -34,9 +34,7 @@ public class testClient {
 	 */
 	@Before
 	public void setUp() throws IOException {
-		
-		System.out.println("Test deneme");
-		
+				
 		serverSocket = new ServerSocket(9806);
 		
 		testClient = new Client();
@@ -79,8 +77,6 @@ public class testClient {
 //	
 	
 	
-	
-	
 	/**
 	 * Test for message receive properly from client.
 	 * @throws IOException 
@@ -105,4 +101,7 @@ public class testClient {
 		socket.close();
 		serverSocket.close();
 	}
+	
+	
+	
 }

@@ -8,6 +8,7 @@ import client.Client;
 
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * 
@@ -22,13 +23,21 @@ public class Server {
 	private ServerWorker worker;
 	private static ArrayList<ClientsInfo> clients = new ArrayList<ClientsInfo>();
 	
+//	private int port ;
+	
 	public static void main(String[] args) {
+		
+		Scanner myScan = new Scanner(System.in);
 		
 		try {
 			
 			System.out.println("Waiting for clients");
-			//TODO Host/port bilgilerini kullanicidan al.
-			ServerSocket serverSocket = new ServerSocket(9806);
+			
+			System.out.println("Enter a port number");
+			
+			final int PORT = myScan.nextInt();
+			
+			ServerSocket serverSocket = new ServerSocket(PORT);
 			
 			LOGGER.log(Level.INFO, "Server started.");
 			
@@ -46,7 +55,7 @@ public class Server {
 		}
 		catch (Exception e){
 			
-			LOGGER.log( Level.SEVERE, e.toString(), e );	
+			LOGGER.log( Level.SEVERE, "There is a problem open a socket", e );	
 			
 		}
 	}

@@ -41,22 +41,26 @@ public class WriteToDb {
 		lowPriQueue = new LinkedList<Message>();
 		midPriQueue = new LinkedList<Message>();
 		highPriQueue = new LinkedList<Message>();
+		
 	}
 	
-	public void connect () {
+	private void connect () {
 		
 		try{
 			
 			if(connection != null) {
+				
 				System.out.println("Connected to PostgreSql server successfully");
 			}
 			else {
+				
 				System.out.println("Failed to connect PostgreSql server");
 			}
 			String query = "Select * from \"midPriorty\";";
 			queryDb(query);
 		}
 		catch(Exception e){
+			
 			LOGGER.log( Level.SEVERE, e.toString(), e );	
 		}
 	}
@@ -68,17 +72,22 @@ public class WriteToDb {
 		
 		System.out.println("Here is the query result: " );
 		try {
+			
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery(query);
 			
 			while (resultSet.next()) {
+				
 				 for (int i = 1; i < resultSet.getMetaData().getColumnCount() + 1; i++) {
+					 
 		              System.out.print(" " + resultSet.getMetaData().getColumnName(i) + "=" + resultSet.getObject(i));
+		              
 		            }
 		            System.out.println("");
 			}
 		}
 		catch(Exception e) {
+			
 			LOGGER.log( Level.SEVERE, e.toString(), e );	
 		}
 	}
@@ -146,9 +155,12 @@ public class WriteToDb {
 			PreparedStatement st;
 			Connection connection = DriverManager.getConnection(url, user, password);
 			public void run() {
+				
 				try {
+					
 					while (lowPriQueue.size()>0)
 					{
+						
 						msg = lowPriQueue.poll();
 						System.out.println("Insert low priorty thread running.");
 						st = connection.prepareStatement("INSERT INTO \"lowPriorty\" (\"id\", \"Tom\", \"Cc\", \"Subject\", \"Type\", \"Message\", \"From\") VALUES (?, ?, ?, ?, ?, ?, ?)");
@@ -167,6 +179,7 @@ public class WriteToDb {
 					
 				}
 				catch(Exception e) {
+					
 					LOGGER.log( Level.SEVERE, e.toString(), e );	
 				}
 			}
@@ -186,8 +199,11 @@ public class WriteToDb {
 			PreparedStatement st;
 			Connection connection = DriverManager.getConnection(url, user, password);
 			public void run() {
+				
 				try {
+					
 					while(midPriQueue.size()>0){
+						
 						msg = midPriQueue.poll();
 						st = connection.prepareStatement("INSERT INTO \"midPriorty\" (\"id\", \"Tom\", \"Cc\", \"Subject\", \"Type\", \"Message\", \"From\") VALUES (?, ?, ?, ?, ?, ?, ?)");
 						st.setInt(1, msg.getId());
@@ -205,6 +221,7 @@ public class WriteToDb {
 				
 				}
 				catch(Exception e) {
+					
 					LOGGER.log( Level.SEVERE, e.toString(), e );	
 				}
 			}
@@ -223,9 +240,12 @@ public class WriteToDb {
 			PreparedStatement st;
 			Connection connection = DriverManager.getConnection(url, user, password);
 			public void run() {
+				
 				try {
+					
 					while (highPriQueue.size()>0)
 					{
+						
 						msg = highPriQueue.poll();
 						st = connection.prepareStatement("INSERT INTO \"highPriorty\" (\"id\", \"Tom\", \"Cc\", \"Subject\", \"Type\", \"Message\", \"From\") VALUES (?, ?, ?, ?, ?, ?, ?)");
 						st.setInt(1, msg.getId());
@@ -242,6 +262,7 @@ public class WriteToDb {
 					}
 				}
 				catch(Exception e) {
+					
 					LOGGER.log( Level.SEVERE, e.toString(), e );	
 				}
 			}
@@ -258,6 +279,7 @@ public class WriteToDb {
 	public void insertDBWithThread(Message msg) throws SQLException {
 	
 		switch (msg.getPriorty()) {
+		
 			case "Dusuk": 
 				lowPriQueue.add(msg);
 				break;

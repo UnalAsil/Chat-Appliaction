@@ -7,6 +7,7 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,34 +25,44 @@ import message.*;
 public class Client {
 	
 	private static final Logger LOGGER = Logger.getLogger( Client.class.getName() );
-	
-	private static BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
-	private static ObjectOutputStream outputStream = null;
 	private Socket socket ;
 
+	
 	public Client() throws IOException {
+		
 		connect();
-		outputStream = new ObjectOutputStream(socket.getOutputStream());
-
 	}
 	/**
 	 * Connect specified address and port.
 	 */
-	public void connect(){
+	private void connect(){
 		
+		Scanner myScan = new Scanner(System.in);
+
 		try {
 			
 			//TODO Host/port bilgilerini kullanicidan al.
-			socket = new Socket("localhost", 9806);
+			System.out.println("Enter a host address");
+			final String HOST = myScan.nextLine();
+			System.out.println("Enter a port Number");
+			final int PORT = myScan.nextInt();
+
+			socket = new Socket(HOST, PORT);
 		}
+		
 		catch (UnknownHostException e) 
 		{
+			
 			LOGGER.log( Level.SEVERE, "Could not connect to the server. unknown host", e);	
 		}
+		
 		catch (IOException e) {
+			
 			LOGGER.log( Level.SEVERE, e.toString(), e );	
 		}
+		
 		LOGGER.log( Level.INFO, "Client connect the server" );	
+		
 	}
 	
 	private void queryMessage() {
@@ -84,6 +95,15 @@ public class Client {
 		
 		Message mes = new Message(to,cc,subject,priorty, message , from);
 		
+		ObjectOutputStream outputStream = null;
+		
+		try {
+			outputStream = new ObjectOutputStream(socket.getOutputStream());
+		}
+		catch (IOException e1) {
+			LOGGER.log( Level.SEVERE, "Could not create socket", e1 );	
+		}
+		
 		try {
 			
 			outputStream.writeObject(mes); //Send to Server message object.
@@ -97,9 +117,18 @@ public class Client {
 		return mes;
 	}
 	
-	public Message sendMessage (String to, String cc, String subject, String priorty, String message , String from , int id) {
+	public Message sendMessage (String to, String cc, String subject, String priorty, String message , String from, int id ) {
 		
-		Message mes = new Message(to,cc,subject,priorty, message , from , id);
+		Message mes = new Message(to,cc,subject,priorty, message , from, id);
+		
+		ObjectOutputStream outputStream = null;
+		
+		try {
+			outputStream = new ObjectOutputStream(socket.getOutputStream());
+		}
+		catch (IOException e1) {
+			LOGGER.log( Level.SEVERE, "Could not create socket", e1 );	
+		}
 		
 		try {
 			

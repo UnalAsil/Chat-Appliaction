@@ -13,13 +13,13 @@ import java.io.Serializable;
 @SuppressWarnings({ "serial" })
 public class Message implements Comparable<Message>  ,Serializable { //Serializable cause Transferring of Java Objects through sockets
 
-	private String from;
-	private String to;
-	private String cc;
-	private String subject;
-	private String priorty;
-	private String message;
-	private int id; // Id of messages
+	private final String from;
+	private final String to;
+	private final String cc;
+	private final String subject;
+	private final String priorty;
+	private final String message;
+	private final int id; // Id of messages
 
 	private static int ID=1; // Use for generate unique Id.
 	
@@ -57,39 +57,20 @@ public class Message implements Comparable<Message>  ,Serializable { //Serializa
 		return to;
 	}
 	
-	public void setTo(String to) {
-		this.to = to;
-	}
-	
 	public String getCc() {
 		return cc;
-	}
-	
-	public void setCc(String cc) {
-		this.cc = cc;
 	}
 	
 	public String getSubject() {
 		return subject;
 	}
 	
-	public void setSubject(String subject) {
-		this.subject = subject;
-	}
-	
 	public String getPriorty() {
 		return priorty;
 	}
-	public void setPriorty(String priorty) {
-		this.priorty = priorty;
-	}
-	
+
 	public String getMessage() {
 		return message;
-	}
-	
-	public void setMessage(String message) {
-		this.message = message;
 	}
 	
 	@Override
@@ -106,19 +87,8 @@ public class Message implements Comparable<Message>  ,Serializable { //Serializa
 		return id;
 	}
 	
-	public void setId(int id) {
-		this.id = id;
-	}
-	
 	public String getFrom() {
 		return from;
 	}
 	
-	public void setFrom(String from) {
-		this.from = from;
-	}
-	
-
-	
-
 }

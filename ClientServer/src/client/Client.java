@@ -96,4 +96,22 @@ public class Client {
 		
 		return mes;
 	}
+	
+	public Message sendMessage (String to, String cc, String subject, String priorty, String message , String from , int id) {
+		
+		Message mes = new Message(to,cc,subject,priorty, message , from , id);
+		
+		try {
+			
+			outputStream.writeObject(mes); //Send to Server message object.
+			outputStream.reset();
+			
+		}
+		catch(Exception e){
+			LOGGER.log( Level.SEVERE, "Could not send message from client to server", e );	
+		}
+		
+		return mes;
+	}
+	
 }

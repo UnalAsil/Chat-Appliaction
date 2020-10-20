@@ -74,7 +74,7 @@ public class ServerWorker extends Thread {
 	        System.out.println("The Object  was succesfully written to a file");
 	        
 		} catch (Exception e) {
-			LOGGER.log( Level.SEVERE, e.toString(), e );	
+			LOGGER.log( Level.SEVERE, e.toString(), e );
 		}
 	}
 	
@@ -139,11 +139,11 @@ public class ServerWorker extends Thread {
 		
 		BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		PrintWriter out = new PrintWriter(socket.getOutputStream(),true);
-		inStream = new ObjectInputStream(socket.getInputStream());
+//		inStream = new ObjectInputStream(socket.getInputStream());
 		
 		while(flag)
 		{
-			Message mes = (Message)inStream.readObject();
+			Message mes = getMessageFromSocket();
 			if (mes == null) { //Client disconnect.
 				flag = false;
 			}
@@ -160,5 +160,15 @@ public class ServerWorker extends Thread {
 		}
 		LOGGER.log( Level.ALL, "Connection closed" );	
 		socket.close();
+	}
+	
+
+	public Message getMessageFromSocket() throws IOException, ClassNotFoundException {
+		
+		inStream = new ObjectInputStream(socket.getInputStream());
+		Message mes = (Message)inStream.readObject();
+		
+		return mes;
+		
 	}
 }

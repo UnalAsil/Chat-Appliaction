@@ -43,6 +43,16 @@ public class Message implements Comparable<Message>  ,Serializable { //Serializa
 		this.id = ID++; 
 	}
 	
+	public Message(String to, String cc, String subject, String priorty, String message, String from, int id) {
+		this.to = to;
+		this.cc = cc;
+		this.subject = subject;
+		this.priorty = priorty;
+		this.message = message;
+		this.from = from;
+		this.id = id; 
+	}
+	
 	public String getTo() {
 		return to;
 	}
@@ -107,5 +117,8 @@ public class Message implements Comparable<Message>  ,Serializable { //Serializa
 	public void setFrom(String from) {
 		this.from = from;
 	}
+	
+
+	
 
 }

@@ -21,11 +21,8 @@ public class testClient {
 
 	private Client testClient;
 	private ServerWorker testWorker; 
-	
 	private final int PORT = 9806;
-	
 	private ServerSocket serverSocket;
-	
 	private Socket socket ;
 	
 	/**
@@ -42,7 +39,6 @@ public class testClient {
 		socket = serverSocket.accept();
 		
 		System.out.println("Test deneme 2");
-
 
 		testWorker = new ServerWorker(socket);
 		
@@ -101,7 +97,5 @@ public class testClient {
 		socket.close();
 		serverSocket.close();
 	}
-	
-	
 	
 }

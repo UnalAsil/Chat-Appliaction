@@ -41,7 +41,6 @@ public class Client {
 
 		try {
 			
-			//TODO Host/port bilgilerini kullanicidan al.
 			System.out.println("Enter a host address");
 			final String HOST = myScan.nextLine();
 			System.out.println("Enter a port Number");

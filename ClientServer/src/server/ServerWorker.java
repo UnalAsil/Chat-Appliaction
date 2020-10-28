@@ -145,10 +145,6 @@ public class ServerWorker extends Thread {
 //		sqlConnect.connect();
 		
 		
-		BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-		PrintWriter out = new PrintWriter(socket.getOutputStream(),true);
-//		inStream = new ObjectInputStream(socket.getInputStream());
-		
 		while(flag)
 		{
 			Message mes = getMessageFromSocket();

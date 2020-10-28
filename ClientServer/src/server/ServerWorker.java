@@ -67,7 +67,8 @@ public class ServerWorker extends Thread {
 	
 	private void writeObjectToFile(Message message, String path) {
 		
-	    try {
+	    try 
+	    {
 	    	
 			FileOutputStream fileOut = new FileOutputStream(path);
 	        ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
